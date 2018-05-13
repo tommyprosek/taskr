@@ -1,6 +1,5 @@
 <?php 
-	include_once 'header.php';
-
+	include_once 'common/header.php';
 ?>
 
 <section class="main-container">
@@ -10,6 +9,5 @@
 </section>
 
 <?php 
-	include_once 'footer.php';
-
+	include_once 'common/footer.php';
 ?>

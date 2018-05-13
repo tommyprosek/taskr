@@ -1,12 +1,11 @@
 <?php 
-	include_once 'header.php';
-
+	include_once 'common/header.php';
 ?>
 
 <section class="main-container">
 	<div class="main-wrapper">
 		<h2>Signup</h2>
-		<form class="signup-form" action="includes/signup-db.php" method="POST">
+		<form class="signup-form" action="lib/signup-db.php" method="POST">
 			<input type="text" name="first" placeholder="Firstname">
 			<input type="text" name="last" placeholder="Lastname">
 			<input type="text" name="email" placeholder="E-mail">
@@ -18,6 +17,5 @@
 </section>
 
 <?php 
-	include_once 'footer.php';
-
+	include_once 'common/footer.php';
 ?>

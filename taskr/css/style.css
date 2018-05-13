@@ -18,6 +18,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
+    font-family: arial, serif;
     margin:0;
     padding:0;
     border:0;
@@ -132,7 +133,6 @@ header nav ul li {
 }
 
 header nav ul li a {
-    font-family: arial;
     font-size: 16px;
     color: #111;
     line-height: 63px;
@@ -151,11 +151,10 @@ header .nav-login form input {
     float: left;
     width: 140px;
     height: 30px;
-    padding: 0px 10px;
+    padding: 0 10px;
     margin-right: 10px;
     border: none;
     background-color: #ccc;
-    font-family: arial;
     font-size: 14px;
     color: #111;
     line-height: 30px;
@@ -168,7 +167,6 @@ header .nav-login form button {
     margin-right: 10px;
     border: none;
     background-color: #f3f3f3;
-    font-family: arial;
     font-size: 14px;
     color: #111;
     cursor: pointer;
@@ -185,7 +183,6 @@ header .nav-login a {
     border: none;
     float: left;
     background-color: #fff;
-    font-family: arial;
     font-size: 16px;
     color: #111;
     line-height: 63px;
@@ -196,8 +193,7 @@ header .nav-login a {
     padding-top: 40px; 
 }
 
-.main-container h2 { 
-    font-family: arial;
+.main-container h2 {
     font-size: 40px;
     color: #111;
     line-height: 50px;
@@ -213,11 +209,10 @@ header .nav-login a {
 .signup-form input {
     width: 90%;
     height: 40px;
-    padding: 0px 5%;
+    padding: 0 5%;
     margin-bottom: 4px;
     border: none;
     background-color: #fff;
-    font-family: arial;
     font-size: 16px;
     color: #111;
     line-height: 40px;
@@ -230,7 +225,6 @@ header .nav-login a {
     height: 40px;
     border: none;
     background-color: #222;
-    font-family: arial;
     font-size: 16px;
     color: #fff;
     cursor: pointer;
@@ -238,5 +232,18 @@ header .nav-login a {
 
 .signup-form button:hover {
     background-color: #111; 
+}
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #222;
+    color: white;
+    text-align: center;
+}
+
+.copyright {
+    margin: 1em;
 }
