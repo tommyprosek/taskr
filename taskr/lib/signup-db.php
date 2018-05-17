@@ -8,14 +8,14 @@ if (isset($_POST['submit'])) {
     echo "<br>";
     // atd...
 
-    include_once 'db.php';
+    include_once 'connect.php';
 
 //		TODO tommy - od ktere verze PHP jsou tyto funkce depraceted a cim se daji nahradit
-    $first = mysql_real_escape_string($conn, $_POST['first']);
-    $last = mysql_real_escape_string($conn, $_POST['last']);
-    $email = mysql_real_escape_string($conn, $_POST['email']);
-    $uid = mysql_real_escape_string($conn, $_POST['uid']);
-    $pwd = mysql_real_escape_string($conn, $_POST['pwd']);
+    $first = mysqli_real_escape_string($conn, $_POST['first']);
+    $last = mysqli_real_escape_string($conn, $_POST['last']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $uid = mysqli_real_escape_string($conn, $_POST['uid']);
+    $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
 
     if (empty($first) || empty($last) || empty($email) || empty($uid) || empty($pwd)) {
 			header("Location: ../register.php?signup=empty");
