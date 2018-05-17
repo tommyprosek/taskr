@@ -1,20 +1,57 @@
-<?php 
-	include_once 'common/header.php';
+<?php
+
+include 'lib/connect.php';
+include 'lib/hash.php';
+include_once 'common/header.php';
+
+function isValid()
+{
+    if (empty($_POST['first_name'])
+        || empty($_POST['last_name'])
+        || empty($_POST['email'])
+        || empty($_POST['password'])) {
+
+        return false;
+    }
+    return true;
+}
+
+if (!empty($_POST['issubmit'])) {
+    if (isValid()) {
+        $connection = connect();
+        $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES
+  (:first_name, :last_name, :password, :email)";
+        $statement = $connection->prepare($sql);
+        $statement->execute(array(
+            "first_name" => $_POST['first_name'],
+            "last_name" => $_POST['last_name'],
+            "password" => hashWithSalt($_POST['password']),
+            "email" => $_POST['email']
+        ));
+
+        session_start();
+        header("Location: index.php");
+    } else {
+        echo '<span style="color:red">vsechny hodnoty jsou povinne</span>';
+    }
+
+}
 ?>
 
-<section class="main-container">
-	<div class="main-wrapper">
-		<h2>Signup</h2>
-		<form class="signup-form" action="lib/signup.php" method="POST">
-			<input type="text" name="first_name" placeholder="Firstname" value="<?php echo $first_name ?>">
-			<input type="text" name="last_name" placeholder="Lastname" value="<?php echo $last_name ?>">
-			<input type="text" name="email" placeholder="E-mail" value="<?php echo $email ?>">
-			<input type="password" name="password" placeholder="Password">
-			<button type="submit" name="submit">Sign up</button>
-		</form>
-	</div>
-</section>
+    <section class="main-container">
+        <div class="main-wrapper">
+            <h2>Signup</h2>
+            <form class="signup-form" action="register.php" method="POST">
+                <input type="text" name="first_name" placeholder="Firstname">
+                <input type="text" name="last_name" placeholder="Lastname">
+                <input type="text" name="email" placeholder="E-mail">
+                <input type="password" name="password" placeholder="Password">
+                <input type="hidden" name="issubmit" value="true">
+                <button type="submit" name="submit">Sign up</button>
+            </form>
+        </div>
+    </section>
 
-<?php 
-	include_once 'common/footer.php';
+<?php
+include_once 'common/footer.php';
 ?>
