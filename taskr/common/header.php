@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,16 +17,12 @@
         <div class="main-wrapper">
             <ul>
 <!--                TODO tommy - tady to same-->
-                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">Taskr</a></li>
             </ul>
             <div class="nav-login">
-                <form>
-                    <input type="text" name="uid" placeholder="Username/e-mail">
-                    <input type="password" name="pwd" placeholder="password">
-                    <button type="submit" name="submit">Login</button>
-                </form>
 
 <!--                TODO tommy - tady to same-->
+                <a href="login.php">Login</a>
                 <a href="register.php">Sign up</a>
             </div>
         </div>

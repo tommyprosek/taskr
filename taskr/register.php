@@ -1,7 +1,6 @@
 <?php
 
 include 'lib/connect.php';
-include 'lib/hash.php';
 include_once 'common/header.php';
 
 function isValid()
@@ -25,7 +24,7 @@ if (!empty($_POST['issubmit'])) {
         $statement->execute(array(
             "first_name" => $_POST['first_name'],
             "last_name" => $_POST['last_name'],
-            "password" => hashWithSalt($_POST['password']),
+            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT),
             "email" => $_POST['email']
         ));
 
@@ -38,7 +37,7 @@ if (!empty($_POST['issubmit'])) {
 }
 ?>
 
-    <section class="main-container">
+    <div class="main-container">
         <div class="main-wrapper">
             <h2>Signup</h2>
             <form class="signup-form" action="register.php" method="POST">
@@ -50,7 +49,7 @@ if (!empty($_POST['issubmit'])) {
                 <button type="submit" name="submit">Sign up</button>
             </form>
         </div>
-    </section>
+    </div>
 
 <?php
 include_once 'common/footer.php';

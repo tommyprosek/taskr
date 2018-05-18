@@ -247,3 +247,10 @@ header .nav-login a {
 .copyright {
     margin: 1em;
 }
+
+.hw {
+    width: 100%;
+    height: 30px;
+    backgroud-color: #blue;
+    text-align: center;
+}
