@@ -1,22 +1,38 @@
 <?php
 include_once 'common/header.php';
+function jeZaregistrovany() {
+    return isset($_SESSION["email"])
+        && isset($_SESSION["first_name"])
+        && isset($_SESSION["last_name"]);
+}
+function thereWillBeTasks()
+{
+    echo '<div class="nav-login">';
+    echo '  <h2>Hlavní stránka</h2>';
+    echo '  <p>Tady budou tasky...</p>';
+    echo '</div>';
+}
+function registerHere()
+{
+   echo '<div class="no-login">';
+                echo '<h2>Neznámý uživatel</h2>';
+               echo '<p> Vítej na Taskru.<br>Zatím tě neznáme.<br> Chceš se <a href="login.php">přihlásit</a>?<br><br>
+                    Pokud nejsi zaregistrovany  <a href="register.php">zaregistruj se</a>.
+                </p>';
+           echo '</div>';
+}
 ?>
 
     <section class="main-container">
         <div class="main-wrapper">
-            <div class="tasks">
-                <h2>Home</h2>
-                <p>
-                    Tady budou tasky...
-                </p>
-            </div>
-            <div class="no-login">
-                <h2>Anonymous user</h2>
-                <p>
-                    Welcome to Taskr.<br>We don't know you yet.<br> Do you want to <a href="login.php">login</a>?<br><br>
-                    If you don't have registration you can <a href="register.php">register here</a>.
-                </p>
-            </div>
+
+            <?php
+            if (jeZaregistrovany()) {
+                thereWillBeTasks();
+            } else {
+                registerHere();
+            }
+            ?>
         </div>
     </section>
 

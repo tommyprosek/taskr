@@ -1,5 +1,6 @@
 <?php
 include 'lib/connect.php';
+include 'lib/common.php';
 include_once 'common/header.php';
 
 function isValid()
@@ -23,18 +24,21 @@ if (!empty($_POST['issubmit'])) {
 
                 $first_name = $row['first_name'];
                 $last_name = $row['last_name'];
+                $email = $row['email'];
 
-// session_start();
-// header("Location: index.php");
+                $_SESSION["first_name"] = $first_name;
+                $_SESSION["last_name"] = $last_name;
+                $_SESSION["email"] = $email;
+                header("Location: index.php");
 
             } else {
-                echo '<span style="color:red">E-mail nebo heslo se neshoduje. Zkuste to znovu.</span>';
+                writeErrorMessage('E-mail nebo heslo se neshoduje. Zkuste to znovu.');
             }
         } else {
-            echo '<span style="color:red">Uživatel s tímto e-mailem nebyl nalezen.<br>Chcete se <a href="register.php">zaregistrovat</a>?</span>';
+            writeErrorMessage('Uživatel s tímto e-mailem nebyl nalezen.<br>Chcete se <a href="register.php">zaregistrovat</a>?');
         }
     } else {
-        echo '<span style="color:red">Musíte zadat e-mail a heslo...</span>';
+        writeErrorMessage('Musíte zadat e-mail a heslo...');
     }
 }
 

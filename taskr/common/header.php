@@ -1,5 +1,28 @@
 <?php
+session_start();
 
+function isUserAuthenticated() {
+    return isset($_SESSION["email"])
+        && isset($_SESSION["first_name"])
+        && isset($_SESSION["last_name"]);
+}
+
+function showAuthenticatedButtons()
+{
+    echo '<div class="nav-login">';
+    echo '  <span class="user-name">'.$_SESSION['first_name'].'&nbsp;'.$_SESSION['last_name'].'&nbsp;</span>';
+    echo '  <a href="logout.php">Odhlásit</a>';
+    echo '</div>';
+}
+
+function showNotAuthenticatedButtons()
+{
+    echo '<div class="nav-login">';
+    echo '  <a href="login.php">Přihlásit</a>';
+    echo '&nbsp;|&nbsp;';
+    echo '  <a href="register.php">Zaregistrovat</a>';
+    echo '</div>';
+}
 
 ?>
 <!DOCTYPE html>
@@ -7,7 +30,6 @@
 <head>
     <title>Taskr</title>
 
-    <!-- TODO tommy - zjistit, jak se tohle da parametrizovat v inclidovanych souborech, anebo zda se da pouzit absolutni cesta -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
@@ -16,15 +38,15 @@
     <nav>
         <div class="main-wrapper">
             <ul>
-<!--                TODO tommy - tady to same-->
                 <li><a href="index.php">Taskr</a></li>
             </ul>
-            <div class="nav-login">
-
-<!--                TODO tommy - tady to same-->
-                <a href="login.php">Login</a>
-                <a href="register.php">Sign up</a>
-            </div>
+            <?php
+            if (isUserAuthenticated()) {
+                showAuthenticatedButtons();
+            } else {
+                showNotAuthenticatedButtons();
+            }
+            ?>
         </div>
     </nav>
 </header>

@@ -15,63 +15,65 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
     font-family: arial, serif;
-    margin:0;
-    padding:0;
-    border:0;
-    outline:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
 }
 
 body {
-    line-height:1;
+    line-height: 1;
 }
 
-article,aside,details,figcaption,figure,
-footer,header,hgroup,menu,nav,section { 
-    display:block;
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
 }
 
 nav ul {
-    list-style:none;
+    list-style: none;
 }
 
 blockquote, q {
-    quotes:none;
+    quotes: none;
 }
 
 blockquote:before, blockquote:after,
 q:before, q:after {
-    content:'';
-    content:none;
+    content: '';
+    content: none;
 }
 
 a {
-    margin:0;
-    padding:0;
-    font-size:100%;
-    vertical-align:baseline;
-    background:transparent;
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    text-decoration: none;
+    color: #0288FF;
 }
 
 /* change colours to suit your needs */
 ins {
-    background-color:#ff9;
-    color:#000;
-    text-decoration:none;
+    background-color: #ff9;
+    color: #000;
+    text-decoration: none;
 }
 
 /* change colours to suit your needs */
 mark {
-    background-color:#ff9;
-    color:#000; 
-    font-style:italic;
-    font-weight:bold;
+    background-color: #ff9;
+    color: #000;
+    font-style: italic;
+    font-weight: bold;
 }
 
 del {
@@ -79,27 +81,27 @@ del {
 }
 
 abbr[title], dfn[title] {
-    border-bottom:1px dotted;
-    cursor:help;
+    border-bottom: 1px dotted;
+    cursor: help;
 }
 
 table {
-    border-collapse:collapse;
-    border-spacing:0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 /* change border colour to suit your needs */
 hr {
-    display:block;
-    height:1px;
-    border:0;   
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #cccccc;
+    margin: 1em 0;
+    padding: 0;
 }
 
 input, select {
-    vertical-align:middle;
+    vertical-align: middle;
 }
 
 /*Muj kod*/
@@ -107,10 +109,6 @@ input, select {
 .main-wrapper {
     margin: 0 auto;
     width: 1000px;
-}
-
-a {
-    text-decoration: none;
 }
 
 body {
@@ -121,7 +119,7 @@ header nav {
     width: 100%;
     height: 60px;
     background-color: #fff;
-} 
+}
 
 header nav ul {
     float: left;
@@ -136,61 +134,21 @@ header nav ul li a {
     font-size: 16px;
     color: #111;
     line-height: 63px;
+    font-weight: bold;
 }
 
 header .nav-login {
     float: right;
 }
 
-header .nav-login form {
-    float: left;
-    padding-top: 15px;
-}
-
-header .nav-login form input {
-    float: left;
-    width: 140px;
-    height: 30px;
-    padding: 0 10px;
-    margin-right: 10px;
-    border: none;
-    background-color: #ccc;
-    font-size: 14px;
-    color: #111;
-    line-height: 30px;
-}
-
-header .nav-login form button {
-    float: left;
-    width: 60px;
-    height: 30px;
-    margin-right: 10px;
-    border: none;
-    background-color: #f3f3f3;
-    font-size: 14px;
-    color: #111;
-    cursor: pointer;
-}
-
-header .nav-login form button:hover {
-    background-color: #ccc;
-}
-
 header .nav-login a {
-    display: block;
-    width: 60px;
-    height: 60px;
-    border: none;
-    float: left;
-    background-color: #fff;
     font-size: 16px;
-    color: #111;
+    /*color: #111;*/
     line-height: 63px;
-    cursor: pointer;
 }
 
 .main-container {
-    padding-top: 40px; 
+    padding-top: 40px;
 }
 
 .main-container h2 {
@@ -231,7 +189,21 @@ header .nav-login a {
 }
 
 .signup-form button:hover {
-    background-color: #111; 
+    background-color: #111;
+}
+
+.error-message {
+    /*position: absolute; top: 100px;*/
+    width: 300px;
+    margin: 2em auto 0 auto;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
+    padding: 2em;
+    border: 1px solid #a4a452;
+    background-color: #ffff99;
+    color: red;
+    font-weight: bold;
+    box-shadow: 5px 5px 5px #959595;
 }
 
 .footer {

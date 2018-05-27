@@ -28,7 +28,7 @@ if (!empty($_POST['issubmit'])) {
             "email" => $_POST['email']
         ));
 
-        session_start();
+//        session_start();
         header("Location: index.php");
     } else {
         echo '<span style="color:red">vsechny hodnoty jsou povinne</span>';
