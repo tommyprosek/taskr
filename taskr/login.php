@@ -20,6 +20,7 @@ if (!empty($_POST['issubmit'])) {
         $statement = $connection->prepare($sql);
         if ($statement->execute(array($_POST['email']))) {
             $row = $statement->fetch();
+//            TODO tommy - vyresit password verify pro php 5.3.3
             if (password_verify($_POST['password'], $row['password'])) {
 
                 $first_name = $row['first_name'];
@@ -46,12 +47,12 @@ if (!empty($_POST['issubmit'])) {
 
     <div class="main-container">
         <div class="main-wrapper">
-            <h2>Login</h2>
+            <h2>Přihlášení</h2>
             <form class="signup-form" action="login.php" method="POST">
                 <input type="text" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Heslo">
                 <input type="hidden" name="issubmit" value="true">
-                <button type="submit" name="submit">Login</button>
+                <button type="submit" name="submit">Přihlásit</button>
             </form>
         </div>
     </div>

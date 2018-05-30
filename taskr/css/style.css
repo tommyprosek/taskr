@@ -116,7 +116,7 @@ body {
 }
 
 header nav {
-    width: 100%;
+    width: 1000px;
     height: 60px;
     background-color: #fff;
 }
@@ -226,3 +226,29 @@ header .nav-login a {
     backgroud-color: #blue;
     text-align: center;
 }
+
+/*.zadej-task {*/
+    /*padding: 16px 16px 16px 60px;*/
+    /*border: none;*/
+    /*background: red;*/
+    /*position: relative;*/
+    /*margin: 0;*/
+    /*width: 100%;*/
+    /*font-size: 24px;*/
+/*}*/
+
+/*.zadej-task button {*/
+    /*display: block;*/
+    /*margin: 0 auto;*/
+    /*width: 30%;*/
+    /*height: 40px;*/
+    /*border: none;*/
+    /*background-color: #222;*/
+    /*font-size: 16px;*/
+    /*color: #fff;*/
+    /*cursor: pointer;*/
+/*}*/
+
+/*.zadej-task button:hover {*/
+    /*background-color: #111;*/
+/*}*/

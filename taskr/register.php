@@ -1,6 +1,7 @@
 <?php
 
 include 'lib/connect.php';
+include 'lib/common.php';
 include_once 'common/header.php';
 
 function isValid()
@@ -31,7 +32,7 @@ if (!empty($_POST['issubmit'])) {
 //        session_start();
         header("Location: index.php");
     } else {
-        echo '<span style="color:red">vsechny hodnoty jsou povinne</span>';
+        writeErrorMessage('všechny hodnoty jsou povinné ...');
     }
 
 }
@@ -39,12 +40,12 @@ if (!empty($_POST['issubmit'])) {
 
     <div class="main-container">
         <div class="main-wrapper">
-            <h2>Signup</h2>
+            <h2>Registrace</h2>
             <form class="signup-form" action="register.php" method="POST">
-                <input type="text" name="first_name" placeholder="Firstname">
-                <input type="text" name="last_name" placeholder="Lastname">
+                <input type="text" name="first_name" placeholder="Křestní jméno">
+                <input type="text" name="last_name" placeholder="Příjmení">
                 <input type="text" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Password">
+                <input type="password" name="password" placeholder="Heslo">
                 <input type="hidden" name="issubmit" value="true">
                 <button type="submit" name="submit">Sign up</button>
             </form>
