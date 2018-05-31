@@ -2,46 +2,76 @@
 include_once 'common/header.php';
 
 
-function jeZaregistrovany() {
+function isAuthorized()
+{
     return isset($_SESSION["email"])
         && isset($_SESSION["first_name"])
         && isset($_SESSION["last_name"]);
 }
+
 function thereWillBeTasks()
 {
     echo '<div class="nav-login">';
-    echo '  <h2>Hlavní stránka</h2>';
     echo '</div>';
 }
-function registerHere()
+
+function notAuthorizedContent()
 {
-   echo '<div class="no-login">';
-                echo '<h2>Neznámý uživatel</h2>';
-               echo '<p> Vítej na Taskru.<br>Zatím tě neznáme.<br> Chceš se <a href="login.php">přihlásit</a>?<br><br>
-                    Pokud nejsi zaregistrovaný  <a href="register.php">zaregistruj se</a>.
-                </p>';
-           echo '</div>';
+    echo '<div id="no-login">';
+    echo '<p> Vítej na Taskru. Zatím se neznáme.<br><br>
+            Máš účet? <a href="login.php">Přihláš se</a>.<br>Pokud ne, můžeš se <a href="register.php">zaregistrovat</a>.</p>';
+    echo '</div>';
 }
+
 ?>
 
     <section class="main-container">
         <div class="main-wrapper">
 
             <?php
-            if (jeZaregistrovany()) {
+            if (isAuthorized()) {
                 thereWillBeTasks();
                 ?>
-                <form method="POST">
-                <input  class="zadej-task" type="text" placeholder="Zadej úkol" style="background: white; width: 100%; padding: 16px 16px 16px 2px; border: none; position: relative; margin: 0; margin-top: 5px; font-size: 24px; border-radius: 4px 4px 4px 4px;">
-                    <input type="hidden" name="issubmit" value="true">
-                    <button type="submit" name="submit" style=" border-radius: 4px 4px 4px 4px; margin: 0 auto; width: 1018px; height: 40px; border: none; background-color: #222; font-size: 16px; color: #fff;">Přidat</button>
-                </form>
-                <div class="nahled">
-                    <div class="tasks" style=" margin-top: 2px; border-radius: 4px 4px 4px 4px; background: white; width: 100%; padding: 16px 16px 16px 2px">dfdbdbdfbdbd</div>
+                <div id="tasks">
+                    <form method="POST" action="lib/task.php">
+                        <input id="task-title" class="large" name="task-title" type="text" placeholder="Zadejte úkol">
+                        <input id="task-category" class="small" name="task-category" type="text"
+                               placeholder="Zadejte kategorii">
+                        <input id="task-deadline" class="small" name="task-deadline" type="text"
+                               placeholder="Zadejte termín splnění">
+                        <input type="hidden" name="issubmit" value="true">
+                        <button type="submit" name="submit">Přidat</button>
+                    </form>
+                    <div id="task-list">
+                        <table>
+                            <thead>
+                            <th width="400">Úkol</th>
+                            <th width="100">Kategorie</th>
+                            <th width="100">Termín</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            <th>&nbsp;</th>
+                            </thead>
+                            <tbody>
+                            <td>radek zadek</td>
+                            <td>Domácnost</td>
+                            <td>5.3.2018</td>
+                            <td>
+                                <a href="index.php?action=finished&id=1">Splněno</a>
+                            </td>
+                            <td>
+                                <span>&nbsp;|&nbsp;</span>
+                            </td>
+                            <td>
+                                <a href="index.php?action=delete&id=1">Odstranit</a>
+                            </td>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <?php
             } else {
-                registerHere();
+                notAuthorizedContent();
             }
             ?>
 
