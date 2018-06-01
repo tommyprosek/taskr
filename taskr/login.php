@@ -23,13 +23,11 @@ if (!empty($_POST['issubmit'])) {
 //            TODO tommy - vyresit password verify pro php 5.3.3
             if (password_verify($_POST['password'], $row['password'])) {
 
-                $first_name = $row['first_name'];
-                $last_name = $row['last_name'];
-                $email = $row['email'];
+                $_SESSION["first_name"] = $row['first_name'];
+                $_SESSION["last_name"] = $row['last_name'];
+                $_SESSION["email"] = $row['email'];
+                $_SESSION["user_id"] = $row['user_id'];
 
-                $_SESSION["first_name"] = $first_name;
-                $_SESSION["last_name"] = $last_name;
-                $_SESSION["email"] = $email;
                 header("Location: index.php");
 
             } else {

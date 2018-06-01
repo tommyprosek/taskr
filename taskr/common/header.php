@@ -30,6 +30,8 @@ function showNotAuthenticatedButtons()
 <head>
     <title>Taskr</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--CSS for datepicker component-->
+    <link rel="stylesheet" href="css/jquery-ui.css">
 </head>
 <body>
 

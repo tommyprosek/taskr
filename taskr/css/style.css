@@ -239,7 +239,7 @@ div#tasks form {
 
 }
 
-div#tasks form input {
+div#tasks form input, div#tasks form select {
     border: none;
     width: 689px;
     height: 2em;
@@ -248,12 +248,16 @@ div#tasks form input {
     padding: 2px;
 }
 
-div#tasks form input.small {
-     border: none;
-     width: 340px;
-     height: 2em;
-     margin-right: 5px;
- }
+div#tasks form select.small, div#tasks form input.small {
+    border: none;
+    width: 340px;
+    height: 2em;
+    margin-right: 5px;
+}
+
+div#tasks form select.small {
+    height: 2.3em;
+}
 
 div#tasks form button {
     width: 100px;
