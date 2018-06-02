@@ -15,14 +15,12 @@ if (!empty($_POST['issubmit'])) {
             $row = $result->fetch();
             $verified = verify_password_hash($_POST['password'], $row['password']);
             if ($verified) {
-
                 $_SESSION["first_name"] = $row['first_name'];
                 $_SESSION["last_name"] = $row['last_name'];
                 $_SESSION["email"] = $row['email'];
                 $_SESSION["user_id"] = $row['user_id'];
 
                 header("Location: index.php");
-
             } else {
                 writeErrorMessage('E-mail nebo heslo se neshoduje. Zkuste to znovu.');
             }
@@ -39,9 +37,10 @@ if (!empty($_POST['issubmit'])) {
     <div class="main-container">
         <div class="main-wrapper">
             <h2>Přihlášení</h2>
-            <form class="signup-form" action="login.php" method="POST">
-                <input type="text" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Heslo">
+            <form class="form" action="login.php" method="POST">
+                <input type="text" title="Zadejte email ve správném formátu" class="email" id="email" name="email"
+                       placeholder="Email" required>
+                <input type="password" title="Vyplňte heslo" name="password" placeholder="Heslo" required>
                 <input type="hidden" name="issubmit" value="true">
                 <button type="submit" name="submit">Přihlásit</button>
             </form>

@@ -9,18 +9,8 @@ include_once 'common/header.php';
  */
 function isValid($first_name, $last_name, $email, $password)
 {
-    if (empty($first_name)
-        || empty($last_name)
-        || empty($email)
-        || empty($password)) {
-        return false;
-    }
-    if (!isValidEmail($email)) {
-
-    }
-    return true;
+    return !empty($first_name) && !empty($last_name) && !empty($email) && !empty($password);
 }
-
 
 function emailExists($email)
 {
@@ -53,13 +43,15 @@ if (!empty($_POST['issubmit'])) {
     <div class="main-container">
         <div class="main-wrapper">
             <h2>Registrace</h2>
-            <form class="signup-form" action="register.php" method="POST">
-                <input type="text" name="first_name" placeholder="Křestní jméno">
-                <input type="text" name="last_name" placeholder="Příjmení">
-                <input type="text" name="email" placeholder="E-mail">
-                <input type="password" name="password" placeholder="Heslo">
+            <form class="form" action="register.php" method="POST">
+                <input type="text" name="first_name" title="Křestní jméno je povinné" placeholder="Křestní jméno"
+                       required>
+                <input type="text" name="last_name" title="Přijmení je povinné" placeholder="Příjmení" required>
+                <input type="text" name="email" class="email" id="email" title="Email je povinný" placeholder="E-mail"
+                       required>
+                <input type="password" name="password" title="Heslo je povinné" placeholder="Heslo" required>
                 <input type="hidden" name="issubmit" value="true">
-                <button type="submit" name="submit">Sign up</button>
+                <button type="submit" name="submit">Registrovat</button>
             </form>
         </div>
     </div>

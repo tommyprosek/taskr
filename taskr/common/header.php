@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-function isUserAuthenticated() {
+function isUserAuthenticated()
+{
     return isset($_SESSION["email"])
         && isset($_SESSION["first_name"])
         && isset($_SESSION["last_name"]);
@@ -10,7 +11,7 @@ function isUserAuthenticated() {
 function showAuthenticatedButtons()
 {
     echo '<div class="nav-login">';
-    echo '  <span class="user-name">'.$_SESSION['first_name'].'&nbsp;'.$_SESSION['last_name'].'&nbsp;</span>';
+    echo '  <span class="user-name">' . $_SESSION['first_name'] . '&nbsp;' . $_SESSION['last_name'] . '&nbsp;</span>';
     echo '  <a href="logout.php">Odhlásit</a>';
     echo '</div>';
 }

@@ -94,6 +94,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
 /* change border colour to suit your needs */
 
 hr {
@@ -143,12 +144,12 @@ header nav ul li a {
 header .nav-login {
     float: right;
 }
+
 header .nav-login a {
     font-size: 16px;
-/*color: #111;*/
-line-height: 63px;
+    /*color: #111;*/
+    line-height: 63px;
 }
-
 
 .main-container {
     padding-top: 40px;
@@ -161,13 +162,13 @@ line-height: 63px;
     text-align: center;
 }
 
-.signup-form {
+.form {
     width: 400px;
     margin: 0 auto;
     padding-top: 30px;
 }
 
-.signup-form input {
+.form input, .form select {
     width: 90%;
     height: 40px;
     padding: 0 5%;
@@ -179,7 +180,7 @@ line-height: 63px;
     line-height: 40px;
 }
 
-.signup-form button {
+.form button {
     display: block;
     margin: 0 auto;
     width: 30%;
@@ -191,23 +192,20 @@ line-height: 63px;
     cursor: pointer;
 }
 
-.signup-form button:hover {
+.form button:hover {
     background-color: #111;
 }
+
 .error-message {
-/*position: absolute; top: 100px;*/
-width: 300px;
+    width: 300px;
     margin: 2em auto 0 auto;
-/*margin-left: auto;*/
-/*margin-right: auto;*/
-padding: 2em;
+    padding: 2em;
     border: 1px solid #a4a452;
     background-color: #ffff99;
     color: red;
     font-weight: bold;
     box-shadow: 5px 5px 5px #959595;
 }
-
 
 .footer {
     position: fixed;
@@ -231,38 +229,29 @@ padding: 2em;
 }
 
 div#tasks {
-    width: 700px;
+    width: 800px;
     margin: auto;
 }
 
-div#tasks form {
-
-}
-
-div#tasks form input, div#tasks form select {
-    border: none;
-    width: 689px;
-    height: 2em;
-    margin-top: 5px;
-    float: left;
-    padding: 2px;
-}
-
-div#tasks form select.small, div#tasks form input.small {
-    border: none;
-    width: 340px;
-    height: 2em;
-    margin-right: 5px;
-}
-
-div#tasks form select.small {
-    height: 2.3em;
+div#tasks form.form {
+    width: 800px;
+    margin: 0 auto;
+    padding-top: 30px;
 }
 
 div#tasks form button {
-    width: 100px;
-    height: 2em;
-    margin-top: 5px;
+    margin: 0;
+}
+
+div#tasks form input, div#tasks form select {
+    width: 350px;
+    margin: 5px auto;
+}
+
+div#tasks form select.small {
+    width: 430px;
+    border: none;
+    height: 40px;
 }
 
 div#task-list {
@@ -281,4 +270,13 @@ div#no-login {
 .task-finished {
     text-decoration: line-through;
     color: #009c55;
+}
+
+label.error {
+    margin-left: 5px;
+    color: red;
+}
+
+input.error {
+    border: 1px dotted red;
 }

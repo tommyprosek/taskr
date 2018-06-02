@@ -32,9 +32,10 @@ function isValidDate($dateArray)
     return true;
 }
 
-function isValidEmail ($email) {
+function isValidEmail($email)
+{
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    return false;
+        return false;
     }
     return true;
 }

@@ -67,7 +67,8 @@ if (!empty($_GET['action'])) {
 
 }
 
-function getClassNameForTask ($done) {
+function getClassNameForTask($done)
+{
     return $done ? "task-finished" : "";
 }
 
@@ -81,20 +82,29 @@ function getClassNameForTask ($done) {
                 thereWillBeTasks();
                 ?>
                 <div id="tasks">
-                    <form method="POST" action="index.php">
-                        <input id="task-title" class="large" name="title" type="text" placeholder="Zadejte úkol...">
-                        <select id="task-category" class="small" name="category">
-                            <option value="-999">-vyberte kategorii-</option>
-                            <?php
-                            $result = findCategories();
-                            while ($row = $result->fetch()) {
-                                echo "<option value=\"".$row['category_id']."\">".$row['name']."</option>";
-                            }
+                    <form class="form" method="POST" action="index.php">
+                        <div>
+                            <input id="task-title" class="large" name="title" type="text" title="Název úkolu je povinný"
+                                   placeholder="Zadejte úkol..." required>
+                        </div>
+                        <div>
+                            <select id="task-category" class="small" name="category">
+                                <option value="-999">-vyberte kategorii-</option>
+                                <?php
+                                $result = findCategories();
+                                while ($row = $result->fetch()) {
+                                    echo "<option value=\"" . $row['category_id'] . "\">" . $row['name'] . "</option>";
+                                }
 
-                            ?>
-                        </select>
-                        <input id="task-deadline" class="small date" name="deadline" type="text" autocomplete="off"
-                               placeholder="Zadejte termín splnění ve formátu dd.mm.yyyy...">
+                                ?>
+                            </select>
+                        </div>
+                        <div>
+                            <input id="task-deadline" class="small date" id="date"
+                                   title="Zadejte datum ve správném formátu" name="deadline" type="text"
+                                   autocomplete="off"
+                                   placeholder="Zadejte termín splnění ve formátu dd.mm.yyyy...">
+                        </div>
                         <input type="hidden" name="issubmit" value="true">
                         <button type="submit" name="submit">Přidat</button>
                     </form>
@@ -115,18 +125,18 @@ function getClassNameForTask ($done) {
                             $result = findTasksByUserId($_SESSION['user_id']);
                             while ($row = $result->fetch()) {
                                 echo "<tr>";
-                                echo "<td><span class=\"".getClassNameForTask($row['done'])."\">" . $row['title'] . "</span></td>";
+                                echo "<td><span class=\"" . getClassNameForTask($row['done']) . "\">" . $row['title'] . "</span></td>";
                                 echo "<td>" . $row['category_name'] . "</td>";
                                 echo "<td>" . $row['deadline'] . "</td>";
                                 echo "<td>";
                                 if (!$row['done']) {
-                                  echo" <a href=\"index.php?action=finished&task_id=".$row['task_id']."\">Splněno</a>";
+                                    echo " <a href=\"index.php?action=finished&task_id=" . $row['task_id'] . "\">Splněno</a>";
                                 } else {
-                                   echo "&nbsp;";
+                                    echo "&nbsp;";
                                 }
                                 echo "</td>";
                                 echo "<td><span>&nbsp;|&nbsp;</span></td>";
-                                echo "<td><a href=\"index.php?action=delete&task_id=".$row['task_id']."\">Odstranit</a></td>";
+                                echo "<td><a href=\"index.php?action=delete&task_id=" . $row['task_id'] . "\">Odstranit</a></td>";
                                 echo "</tr>";
                             }
                             ?>
@@ -142,22 +152,6 @@ function getClassNameForTask ($done) {
 
         </div>
     </section>
-
-    <!--Basic JQuery library from CDN-->
-    <script type="text/javascript" src="js/jquery-latest.min.js"></script>
-    <!--JQuery UI support for datepicker component from CDN-->
-    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
-    <!--JQuery date mask script-->
-    <script type="text/javascript" src="js/jquery.mask.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            // Set mask for date input
-            // Set datapicker support with date format for date input
-            $('.date')
-                .mask('00.00.0000', {placeholder: "Zadejte termín splnění ve formátu dd.mm.yyyy..."})
-                .datepicker({dateFormat: "dd.mm.yy"});
-        });
-    </script>
 
 <?php
 include_once 'common/footer.php';
