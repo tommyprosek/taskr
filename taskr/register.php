@@ -15,6 +15,9 @@ function isValid($first_name, $last_name, $email, $password)
         || empty($password)) {
         return false;
     }
+    if (!isValidEmail($email)) {
+
+    }
     return true;
 }
 
@@ -27,15 +30,19 @@ function emailExists($email)
 
 if (!empty($_POST['issubmit'])) {
     if (isValid($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'])) {
-        if (!emailExists($_POST['email'])) {
-            $result = createUser($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']);
-            if ($result) {
-                header("Location: index.php");
+        if (isValidEmail($_POST['email'])) {
+            if (!emailExists($_POST['email'])) {
+                $result = createUser($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']);
+                if ($result) {
+                    header("Location: index.php");
+                } else {
+                    writeErrorMessage('Nepodařilo se vytvořit uživatele. Zkuste to znovu.');
+                }
             } else {
-                writeErrorMessage('Nepodařilo se vytvořit uživatele. Zkuste to znovu.');
+                writeErrorMessage('Uzivatel s timto emailem uz existuje');
             }
         } else {
-            writeErrorMessage('Uzivatel s timto emailem uz existuje');
+            writeErrorMessage('Email je ve špatném formátu');
         }
     } else {
         writeErrorMessage('všechny hodnoty jsou povinné ...');
