@@ -1,4 +1,5 @@
 <?php
+include "password_hash.php";
 //$dbServer = "127.0.0.1";
 ////$dbUsername = "proseto17";
 ////$dbPassword = "bOGust56";
@@ -39,7 +40,7 @@ function findUserByEmail($email) {
 
 function findTasksByUserId ($user_id) {
     $connection = connect();
-    $sql = "select t.title, t.deadline, c.name as category_name from tasks t
+    $sql = "select t.task_id, t.title, t.deadline, c.name as category_name, t.done from tasks t
 left join categories c on t.category_id = c.category_id
 where t.user_id=:user_id";
     $statement = $connection->prepare($sql);
@@ -51,7 +52,8 @@ function createUser ($first_name, $last_name, $password, $email) {
     $connection = connect();
     $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES (:first_name, :last_name, :password, :email)";
     $statement = $connection->prepare($sql);
-    $statement->execute(array($first_name, $last_name, password_hash($password, PASSWORD_DEFAULT), $email));
+    $hash = create_password_hash($password);
+    $statement->execute(array($first_name, $last_name, $hash, $email));
     return $statement;
 }
 
@@ -71,5 +73,22 @@ function findCategories () {
     $statement->execute();
     return $statement;
 }
+
+function updateTaskFinished ($task_id, $user_id) {
+    $connection = connect();
+    $sql = "UPDATE tasks SET done=true WHERE task_id=:task_id AND user_id=:user_id";
+    $statement = $connection->prepare($sql);
+    $statement->execute(array($task_id, $user_id));
+    return $statement;
+}
+
+function deleteTask ($task_id, $user_id) {
+    $connection = connect();
+    $sql = "DELETE FROM tasks WHERE task_id=:task_id AND user_id=:user_id";
+    $statement = $connection->prepare($sql);
+    $statement->execute(array($task_id, $user_id));
+    return $statement;
+}
+
 
 ?>

@@ -277,3 +277,8 @@ div#no-login {
     background: transparent url("../img/panda.png") no-repeat top right;
     font-size: 1.5em;
 }
+
+.task-finished {
+    text-decoration: line-through;
+    color: #009c55;
+}

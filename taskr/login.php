@@ -13,8 +13,8 @@ if (!empty($_POST['issubmit'])) {
         $result = findUserByEmail($_POST['email']);
         if ($result->rowCount() > 0) {
             $row = $result->fetch();
-//            TODO tommy - vyresit password verify pro php 5.3.3
-            if (password_verify($_POST['password'], $row['password'])) {
+            $verified = verify_password_hash($_POST['password'], $row['password']);
+            if ($verified) {
 
                 $_SESSION["first_name"] = $row['first_name'];
                 $_SESSION["last_name"] = $row['last_name'];

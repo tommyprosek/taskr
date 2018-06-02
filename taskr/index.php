@@ -46,9 +46,32 @@ if (!empty($_POST['issubmit'])) {
     }
 }
 
+if (!empty($_GET['action'])) {
+    $action = $_GET['action'];
+    if ($action == 'finished' && !empty($_GET['task_id'])) {
+        $result = updateTaskFinished($_GET['task_id'], $_SESSION['user_id']);
+        if ($result) {
+            header("Location: index.php");
+        } else {
+            writeErrorMessage('Nepodařilo se dokončit task');
+        }
+    }
+    if ($action == 'delete' && !empty($_GET['task_id'])) {
+        $result = deleteTask($_GET['task_id'], $_SESSION['user_id']);
+        if ($result) {
+            header("Location: index.php");
+        } else {
+            writeErrorMessage('Nepodařilo se smazat task');
+        }
+    }
+
+}
+
+function getClassNameForTask ($done) {
+    return $done ? "task-finished" : "";
+}
 
 ?>
-
 
     <section class="main-container">
         <div class="main-wrapper">
@@ -92,12 +115,18 @@ if (!empty($_POST['issubmit'])) {
                             $result = findTasksByUserId($_SESSION['user_id']);
                             while ($row = $result->fetch()) {
                                 echo "<tr>";
-                                echo "<td>" . $row['title'] . "</td>";
+                                echo "<td><span class=\"".getClassNameForTask($row['done'])."\">" . $row['title'] . "</span></td>";
                                 echo "<td>" . $row['category_name'] . "</td>";
                                 echo "<td>" . $row['deadline'] . "</td>";
-                                echo "<td><a href=\"index.php?action=finished&id=1\">Splněno</a></td>";
+                                echo "<td>";
+                                if (!$row['done']) {
+                                  echo" <a href=\"index.php?action=finished&task_id=".$row['task_id']."\">Splněno</a>";
+                                } else {
+                                   echo "&nbsp;";
+                                }
+                                echo "</td>";
                                 echo "<td><span>&nbsp;|&nbsp;</span></td>";
-                                echo "<td><a href=\"index.php?action=delete&id=1\">Odstranit</a></td>";
+                                echo "<td><a href=\"index.php?action=delete&task_id=".$row['task_id']."\">Odstranit</a></td>";
                                 echo "</tr>";
                             }
                             ?>
