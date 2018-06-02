@@ -39,7 +39,9 @@ function findUserByEmail($email) {
 
 function findTasksByUserId ($user_id) {
     $connection = connect();
-    $sql = "select t.title, t.deadline, t.category_id from tasks t where user_id=:user_id";
+    $sql = "select t.title, t.deadline, c.name as category_name from tasks t
+left join categories c on t.category_id = c.category_id
+where t.user_id=:user_id";
     $statement = $connection->prepare($sql);
     $statement->execute(array($user_id));
     return $statement;
@@ -50,6 +52,23 @@ function createUser ($first_name, $last_name, $password, $email) {
     $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES (:first_name, :last_name, :password, :email)";
     $statement = $connection->prepare($sql);
     $statement->execute(array($first_name, $last_name, password_hash($password, PASSWORD_DEFAULT), $email));
+    return $statement;
+}
+
+function createTask ($user_id, $title, $deadline, $category_id) {
+    $connection = connect();
+    $sql = "INSERT INTO tasks (user_id, title, deadline, category_id)
+    values (:user_id, :title, :deadline, :category_id )";
+    $statement = $connection->prepare($sql);
+    $statement->execute(array($user_id, $title, $deadline, $category_id));
+    return $statement;
+}
+
+function findCategories () {
+    $connection = connect();
+    $sql = "SELECT * from categories";
+    $statement = $connection->prepare($sql);
+    $statement->execute();
     return $statement;
 }
 

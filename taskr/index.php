@@ -26,30 +26,21 @@ function notAuthorizedContent()
     echo '</div>';
 }
 
-function isValidTask()
+function isValidTask($title)
 {
-    if (empty($_POST['title'])) {
-        return false;
-    }
-    return true;
+    return !empty($title);
 }
 
 if (!empty($_POST['issubmit'])) {
-    if (isValidTask()) {
-
+    if (isValidTask($_POST['title'])) {
+        $category = $_POST['category'] == "-999" ? null : $_POST['category'];
         $dateArray = parseDate($_POST['deadline']);
-
-        $connection = connect();
-        $sql = "INSERT INTO tasks (user_id, title, deadline, category_id)
-    values (:user_id, :title, :deadline, null )";
-        $statement = $connection->prepare($sql);
-        $statement->execute(array(
-            "user_id" => $_SESSION['user_id'],
-            "title" => $_POST['title'],
-            "deadline" => $_POST['deadline']
-
-        ));
-        header("Location: index.php");
+        $result = createTask($_SESSION['user_id'], $_POST['title'], $_POST['deadline'], $category);
+        if ($result) {
+            header("Location: index.php");
+        } else {
+            writeErrorMessage('Nepodařilo se vytvořit task');
+        }
     } else {
         writeErrorMessage('Musíš vyplnit vše');
     }
@@ -70,10 +61,14 @@ if (!empty($_POST['issubmit'])) {
                     <form method="POST" action="index.php">
                         <input id="task-title" class="large" name="title" type="text" placeholder="Zadejte úkol...">
                         <select id="task-category" class="small" name="category">
-                            <option>-vyberte kategorii-</option>
-                            <option value="1">Saab</option>
-                            <option value="2">Opel</option>
-                            <option value="3">Audi</option>
+                            <option value="-999">-vyberte kategorii-</option>
+                            <?php
+                            $result = findCategories();
+                            while ($row = $result->fetch()) {
+                                echo "<option value=\"".$row['category_id']."\">".$row['name']."</option>";
+                            }
+
+                            ?>
                         </select>
                         <input id="task-deadline" class="small date" name="deadline" type="text" autocomplete="off"
                                placeholder="Zadejte termín splnění ve formátu dd.mm.yyyy...">
@@ -98,7 +93,7 @@ if (!empty($_POST['issubmit'])) {
                             while ($row = $result->fetch()) {
                                 echo "<tr>";
                                 echo "<td>" . $row['title'] . "</td>";
-                                echo "<td>" . $row['category_id'] . "</td>";
+                                echo "<td>" . $row['category_name'] . "</td>";
                                 echo "<td>" . $row['deadline'] . "</td>";
                                 echo "<td><a href=\"index.php?action=finished&id=1\">Splněno</a></td>";
                                 echo "<td><span>&nbsp;|&nbsp;</span></td>";
