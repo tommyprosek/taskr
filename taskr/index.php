@@ -1,5 +1,5 @@
 <?php
-include 'lib/connect.php';
+include 'lib/db.php';
 include 'lib/common.php';
 include_once 'common/header.php';
 
@@ -94,11 +94,8 @@ if (!empty($_POST['issubmit'])) {
                             </thead>
                             <tbody>
                             <?php
-                            $connection = connect();
-                            $sql = "select t.title, t.deadline, t.category_id from tasks t";
-                            $statement = $connection->prepare($sql);
-                            $statement->execute();
-                            while ($row = $statement->fetch()) {
+                            $result = findTasksByUserId($_SESSION['user_id']);
+                            while ($row = $result->fetch()) {
                                 echo "<tr>";
                                 echo "<td>" . $row['title'] . "</td>";
                                 echo "<td>" . $row['category_id'] . "</td>";

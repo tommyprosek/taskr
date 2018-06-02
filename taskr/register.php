@@ -1,40 +1,45 @@
 <?php
 
-include 'lib/connect.php';
+include 'lib/db.php';
 include 'lib/common.php';
 include_once 'common/header.php';
 
-function isValid()
+/**
+ * @return bool
+ */
+function isValid($first_name, $last_name, $email, $password)
 {
-    if (empty($_POST['first_name'])
-        || empty($_POST['last_name'])
-        || empty($_POST['email'])
-        || empty($_POST['password'])) {
-
+    if (empty($first_name)
+        || empty($last_name)
+        || empty($email)
+        || empty($password)) {
         return false;
     }
     return true;
 }
 
-if (!empty($_POST['issubmit'])) {
-    if (isValid()) {
-        $connection = connect();
-        $sql = "INSERT INTO users (first_name, last_name, password, email) VALUES
-  (:first_name, :last_name, :password, :email)";
-        $statement = $connection->prepare($sql);
-        $statement->execute(array(
-            "first_name" => $_POST['first_name'],
-            "last_name" => $_POST['last_name'],
-            "password" => password_hash($_POST['password'], PASSWORD_DEFAULT),
-            "email" => $_POST['email']
-        ));
 
-//        session_start();
-        header("Location: index.php");
+function emailExists($email)
+{
+    $result = findUserByEmail($email);
+    return $result->rowCount() > 0;
+}
+
+if (!empty($_POST['issubmit'])) {
+    if (isValid($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password'])) {
+        if (!emailExists($_POST['email'])) {
+            $result = createUser($_POST['first_name'], $_POST['last_name'], $_POST['email'], $_POST['password']);
+            if ($result) {
+                header("Location: index.php");
+            } else {
+                writeErrorMessage('Nepodařilo se vytvořit uživatele. Zkuste to znovu.');
+            }
+        } else {
+            writeErrorMessage('Uzivatel s timto emailem uz existuje');
+        }
     } else {
         writeErrorMessage('všechny hodnoty jsou povinné ...');
     }
-
 }
 ?>
 

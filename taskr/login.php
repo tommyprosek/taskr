@@ -1,25 +1,18 @@
 <?php
-include 'lib/connect.php';
+include 'lib/db.php';
 include 'lib/common.php';
 include_once 'common/header.php';
 
-function isValid()
+function isValid($email, $password)
 {
-    if (empty($_POST['email'])
-        || empty($_POST['password'])) {
-
-        return false;
-    }
-    return true;
+    return !empty($email) && !empty($password);
 }
 
 if (!empty($_POST['issubmit'])) {
-    if (isValid()) {
-        $connection = connect();
-        $sql = "SELECT * FROM users where email=:email";
-        $statement = $connection->prepare($sql);
-        if ($statement->execute(array($_POST['email']))) {
-            $row = $statement->fetch();
+    if (isValid($_POST['email'], $_POST['password'])) {
+        $result = findUserByEmail($_POST['email']);
+        if ($result->rowCount() > 0) {
+            $row = $result->fetch();
 //            TODO tommy - vyresit password verify pro php 5.3.3
             if (password_verify($_POST['password'], $row['password'])) {
 
