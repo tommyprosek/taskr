@@ -24,7 +24,6 @@ function connect()
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
-// TODO tommy - vygoogle co jsou tyhle parametry zač a napsat je sem do komentare
     $opt = array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -50,10 +49,12 @@ function findUserByEmail($email)
 
 function findTasksByUserId($user_id)
 {
+    $sort_by = isset($_SESSION['sort_by']) ? $_SESSION['sort_by'] : 'title';
     $connection = connect();
     $sql = "select t.task_id, t.title, t.deadline, c.name as category_name, t.done from tasks t
 left join categories c on t.category_id = c.category_id
-where t.user_id=:user_id";
+where t.user_id=:user_id
+ORDER BY ".$sort_by." ASC";
     $statement = $connection->prepare($sql);
     $statement->execute(array($user_id));
     return $statement;

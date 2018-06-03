@@ -31,6 +31,7 @@ function isValidTask($title)
     return !empty($title);
 }
 
+
 if (!empty($_POST['issubmit'])) {
     if (isValidTask($_POST['title'])) {
         $category = $_POST['category'] == "-999" ? null : $_POST['category'];
@@ -45,6 +46,7 @@ if (!empty($_POST['issubmit'])) {
         writeErrorMessage('Musíš vyplnit vše');
     }
 }
+
 
 if (!empty($_GET['action'])) {
     $action = $_GET['action'];
@@ -63,6 +65,12 @@ if (!empty($_GET['action'])) {
         } else {
             writeErrorMessage('Nepodařilo se smazat task');
         }
+    }
+    if ($action == 'sort') {
+        if (!empty($_GET['sort_by'])) {
+            $_SESSION['sort_by'] = $_GET['sort_by'];
+        }
+        header("Location: index.php");
     }
 
 }
@@ -100,7 +108,7 @@ function getClassNameForTask($done)
                             </select>
                         </div>
                         <div>
-                            <input id="task-deadline" class="small date" id="date"
+                            <input class="small date" id="date"
                                    title="Zadejte datum ve správném formátu" name="deadline" type="text"
                                    autocomplete="off"
                                    placeholder="Zadejte termín splnění ve formátu dd.mm.yyyy...">
@@ -112,12 +120,27 @@ function getClassNameForTask($done)
                         <table>
                             <thead>
                             <tr>
-                                <th width="400">Úkol</th>
-                                <th width="100">Kategorie</th>
-                                <th width="100">Termín</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
+                                <?php
+                                $sort_by = $_SESSION['sort_by'];
+                                if ($sort_by == 'title') {
+                                    echo "<th width=\"400\">Úkol</th>";
+                                } else {
+                                    echo "<th width=\"400\"><a href=\"index.php?action=sort&sort_by=title  \">Úkol</a></th>";
+                                }
+                                if ($sort_by == 'category_name') {
+                                    echo "<th width=\"400\">Kategorie</th>";
+                                } else {
+                                    echo "<th width=\"400\"><a href=\"index.php?action=sort&sort_by=category_name  \">Kategorie</a></th>";
+                                }
+                                if ($sort_by == 'deadline') {
+                                    echo "<th width=\"400\">Termín</th>";
+                                } else {
+                                    echo "<th width=\"400\"><a href=\"index.php?action=sort&sort_by=deadline  \">Termín</a></th>";
+                                }
+                                echo "<th>&nbsp;</th>";
+                                echo "<th>&nbsp;</th>";
+                                echo "<th>&nbsp;</th>";
+                                ?>
                             </tr>
                             </thead>
                             <tbody>
