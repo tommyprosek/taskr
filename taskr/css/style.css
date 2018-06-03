@@ -162,6 +162,11 @@ header .nav-login a {
     text-align: center;
 }
 
+.main-container h3 {
+    color: #111;
+    text-align: center;
+}
+
 .form {
     width: 400px;
     margin: 0 auto;
@@ -270,6 +275,11 @@ div#no-login {
 .task-finished {
     text-decoration: line-through;
     color: #009c55;
+}
+
+.settings {
+    width: 200px;
+    margin: 30px auto;
 }
 
 label.error {

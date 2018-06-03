@@ -12,6 +12,8 @@ function showAuthenticatedButtons()
 {
     echo '<div class="nav-login">';
     echo '  <span class="user-name">' . $_SESSION['first_name'] . '&nbsp;' . $_SESSION['last_name'] . '&nbsp;</span>';
+    echo '  <a href="settings.php">Nastavení</a>';
+    echo '&nbsp;|&nbsp;';
     echo '  <a href="logout.php">Odhlásit</a>';
     echo '</div>';
 }

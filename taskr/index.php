@@ -31,16 +31,23 @@ function isValidTask($title)
     return !empty($title);
 }
 
+if (!isset($_SESSION['sort_by'])) {
+    $_SESSION['sort_by'] = 'title';
+}
 
 if (!empty($_POST['issubmit'])) {
     if (isValidTask($_POST['title'])) {
         $category = $_POST['category'] == "-999" ? null : $_POST['category'];
         $dateArray = parseDate($_POST['deadline']);
-        $result = createTask($_SESSION['user_id'], $_POST['title'], $_POST['deadline'], $category);
-        if ($result) {
-            header("Location: index.php");
+        if (isValidDate($dateArray)) {
+            $result = createTask($_SESSION['user_id'], $_POST['title'], $dateArray, $category);
+            if ($result) {
+                header("Location: index.php");
+            } else {
+                writeErrorMessage('Nepodařilo se vytvořit task');
+            }
         } else {
-            writeErrorMessage('Nepodařilo se vytvořit task');
+            writeErrorMessage('Datum je ve špatném formátu');
         }
     } else {
         writeErrorMessage('Musíš vyplnit vše');
@@ -99,7 +106,7 @@ function getClassNameForTask($done)
                             <select id="task-category" class="small" name="category">
                                 <option value="-999">-vyberte kategorii-</option>
                                 <?php
-                                $result = findCategories();
+                                $result = findCategories($_SESSION['user_id']);
                                 while ($row = $result->fetch()) {
                                     echo "<option value=\"" . $row['category_id'] . "\">" . $row['name'] . "</option>";
                                 }
@@ -150,7 +157,11 @@ function getClassNameForTask($done)
                                 echo "<tr>";
                                 echo "<td><span class=\"" . getClassNameForTask($row['done']) . "\">" . $row['title'] . "</span></td>";
                                 echo "<td>" . $row['category_name'] . "</td>";
-                                echo "<td>" . $row['deadline'] . "</td>";
+                                if ($row['deadline'] == null) {
+                                    echo "<td>&nbsp;</td>";
+                                } else {
+                                    echo "<td>" . date("d.m.Y", strtotime($row['deadline'])) . "</td>";
+                                }
                                 echo "<td>";
                                 if (!$row['done']) {
                                     echo " <a href=\"index.php?action=finished&task_id=" . $row['task_id'] . "\">Splněno</a>";

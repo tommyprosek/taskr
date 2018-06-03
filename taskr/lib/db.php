@@ -70,8 +70,9 @@ function createUser($first_name, $last_name, $email, $password)
     return $statement;
 }
 
-function createTask($user_id, $title, $deadline, $category_id)
+function createTask($user_id, $title, $dateArray, $category_id)
 {
+    $deadline = $dateArray == null ? null : $dateArray[2]. '-'. $dateArray[1]. '-' .$dateArray[0];
     $connection = connect();
     $sql = "INSERT INTO tasks (user_id, title, deadline, category_id)
     values (:user_id, :title, :deadline, :category_id )";
@@ -80,12 +81,12 @@ function createTask($user_id, $title, $deadline, $category_id)
     return $statement;
 }
 
-function findCategories()
+function findCategories($user_id)
 {
     $connection = connect();
-    $sql = "SELECT * from categories";
+    $sql = "SELECT * from categories where user_id=:user_id";
     $statement = $connection->prepare($sql);
-    $statement->execute();
+    $statement->execute(array($user_id));
     return $statement;
 }
 
@@ -104,6 +105,16 @@ function deleteTask($task_id, $user_id)
     $sql = "DELETE FROM tasks WHERE task_id=:task_id AND user_id=:user_id";
     $statement = $connection->prepare($sql);
     $statement->execute(array($task_id, $user_id));
+    return $statement;
+}
+
+
+
+function createCategory($name, $user_id) {
+    $connection = connect();
+    $sql = "INSERT into categories (name, user_id) values (:name, :user_id)";
+    $statement = $connection->prepare($sql);
+    $statement->execute(array($name, $user_id));
     return $statement;
 }
 

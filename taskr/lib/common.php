@@ -5,8 +5,14 @@ function writeErrorMessage($errorMessage)
     echo '<div class="error-message"><span>' . $errorMessage . '</span></div>';
 }
 
+/**
+ * returns array with 3 values- day, month, year
+ */
 function parseDate($dateValue)
 {
+    if ($dateValue == null || $dateValue == '') {
+        return null;
+    }
     // Expecting format dd.mm.yyyy
     return explode(".", $dateValue);
 }
@@ -23,7 +29,7 @@ function isValidDate($dateArray)
     $day = $dateArray[0];
     $month = $dateArray[1];
     $year = $dateArray[2];
-    if (!is_int($day) || !is_int($month) || !is_int($year)) {
+    if (!is_numeric($day) || !is_numeric($month) || !is_numeric($year)) {
         return false;
     }
     if (!checkdate($month, $day, $year)) {
