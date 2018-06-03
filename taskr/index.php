@@ -115,9 +115,7 @@ function getClassNameForTask($done)
                             </select>
                         </div>
                         <div>
-                            <input class="small date" id="date"
-                                   title="Zadejte datum ve správném formátu" name="deadline" type="text"
-                                   autocomplete="off"
+                            <input class="small deadline" name="deadline" type="text" autocomplete="off"
                                    placeholder="Zadejte termín splnění ve formátu dd.mm.yyyy...">
                         </div>
                         <input type="hidden" name="issubmit" value="true">

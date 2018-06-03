@@ -15,7 +15,7 @@
     $(function () {
         // Set mask for date input
         // Set datapicker support with date format for date input
-        $('.date')
+        $('.deadline')
             .mask('00.00.0000', {placeholder: "Zadejte termín splnění ve formátu dd.mm.yyyy..."})
             .datepicker({dateFormat: "dd.mm.yy"});
         $(".form").validate();
